@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int a, b, r;
+
+    // Lire les deux nombres
+    printf("Entrer le premier nombre : ");
+    scanf("%d", &a);
+    printf("Entrer le deuxieme nombre : ");
+    scanf("%d", &b);
+
+    // Algorithme d’Euclide avec boucle TANT QUE (while)
+    while (b != 0) {
+        r = a % b;   // calcul du reste
+        a = b;       // décalage
+        b = r;       // nouveau reste
+    }
+
+    // Quand b devient 0, a contient le PGCD
+    printf("Le PGCD est : %d\n", a);
+
+    return 0;
+}
