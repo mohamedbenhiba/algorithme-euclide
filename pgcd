@@ -1,0 +1,23 @@
+Définition du PGCD :
+
+Le PGCD (Plus Grand Commun Diviseur) de deux entiers 
+𝑎 et 𝑏 est le plus grand entier positif qui divise à la fois 𝑎 et 𝑏.
+ Exemple :
+PGCD(12, 8) = 4
+(Parce que 4 est le plus grand nombre qui divise 12 et 8 en même temps.)
+Début
+ Déclarer les variables a, b, r de type entier
+ Afficher "Entrer deux nombres entiers : "
+ Lire a, b
+
+ Afficher "Étapes de l'algorithme d'Euclide :"
+ Tant que b ≠ 0 faire
+  r ← a mod b
+  Afficher a = (a / b) * b + r
+  a ← b
+  b ← r
+ Fin Tant que
+
+ Afficher "Le PGCD est : ", a
+
+Fin
