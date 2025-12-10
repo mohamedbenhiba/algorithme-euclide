@@ -1,2 +1,2 @@
-# algorithme-euclide
+# PGCD
 ajoute une petite description
