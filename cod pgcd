@@ -1,0 +1,93 @@
+#include <stdio.h>
+int pgcd_etapes(int a, int b) {
+    printf("Calcul du PGCD(%d, %d):\n", a, b);
+    int etape = 0;
+    int temp_a = a, temp_b = b;
+    
+    while (temp_b != 0) {
+        etape++;
+        printf("Etape %d: %d = %d × %d + %d\n", 
+               etape, temp_a, temp_a/temp_b, temp_b, temp_a % temp_b);
+        int reste = temp_a % temp_b;
+        temp_a = temp_b;
+        temp_b = reste;
+    }
+    
+    printf("Resultat: %d\n\n", temp_a);
+    return temp_a;
+}
+
+int euclide_etendu(int a, int b, int *x, int *y) {
+    if (b == 0) {
+        *x = 1;
+        *y = 0;
+        return a;
+    }
+    
+    int x1, y1;
+    int d = euclide_etendu(b, a % b, &x1, &y1);
+    
+    *x = y1;
+    *y = x1 - (a / b) * y1;
+    
+    return d;
+}
+
+int main() {
+    int a, b, c;
+    
+    printf("Resolution de l'equation diophantienne: ax + by = c\n");
+    printf("Entrez la valeur de a: ");
+    scanf("%d", &a);
+    printf("Entrez la valeur de b: ");
+    scanf("%d", &b);
+    printf("Entrez la valeur de c: ");
+    scanf("%d", &c);
+    
+    printf("\nEquation: %dx + %dy = %d\n\n", a, b, c);
+    
+    printf("Etape 1: Verification de l'existence de solution\n");
+    int d = pgcd_etapes(a, b);
+    
+    if (c % d != 0) {
+        printf("Aucune solution car %d ne divise pas %d\n", d, c);
+        return 0;
+    }
+    
+    printf("Solution existe car %d divise %d\n\n", d, c);
+    
+    printf("Etape 2: Recherche d'une solution particuliere\n");
+    int x0, y0;
+    euclide_etendu(a, b, &x0, &y0);
+    
+    printf("Solution de l'equation de base: %d*%d + %d*%d = %d\n", a, x0, b, y0, a*x0 + b*y0);
+    
+    int k = c / d;
+    int xp = x0 * k;
+    int yp = y0 * k;
+    
+    printf("Multiplication par %d:\n", k);
+    printf("x = %d * %d = %d\n", x0, k, xp);
+    printf("y = %d * %d = %d\n", y0, k, yp);
+    printf("Solution particuliere: (%d, %d)\n\n", xp, yp);
+    
+
+    printf("Etape 3: Ecriture de la solution generale\n");
+    int alpha = b / d;
+    int beta = -a / d;
+    
+    printf("Solution generale:\n");
+    printf("x = %d + %d * k\n", xp, alpha);
+    printf("y = %d + %d * k\n", yp, beta);
+    printf("ou k est un entier relatif\n\n");
+    
+    printf("Verification des solutions:\n");
+    for(int i = -2; i <= 2; i++) {
+        int x = xp + alpha * i;
+        int y = yp + beta * i;
+        printf("k=%d: x=%d, y=%d => %d*%d + %d*%d = %d\n", 
+               i, x, y, a, x, b, y, a*x + b*y);
+    }
+    
+    return 0;
+}
