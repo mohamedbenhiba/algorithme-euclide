@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+bool est_premier(int x) {
+    if (x < 2) return false;         // 0 et 1 ne sont pas premiers
+    int i = 2;
+    while (i * i <= x) {             // on va jusqu'à racine de x
+        if (x % i == 0) return false;
+        i++;
+    }
+    return true;
+}
+
+int main() {
+    int n;
+
+    printf("Entrer un entier n : ");
+    scanf("%d", &n);
+
+    printf("Tous les nombres de 1 a %d :\n", n);
+    for (int i = 1; i <= n; i++) {
+        printf("%d ", i);
+    }
+    printf("\n");
+
+
+    printf("Les nombres premiers entre 1 et %d :\n", n);
+    for (int i = 1; i <= n; i++) {
+        if (est_premier(i)) {
+            printf("%d ", i);
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
